@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.3'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.learnify.recommendation'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    //maven { url "https://repo1.maven.org/maven2/"}
+    //maven { url "https://repo.maven.apache.org/maven2/" }  // Maven Central (default)
+    //maven { url "https://oss.sonatype.org/content/repositories/releases/" }  // JPMML repository
+    //maven { url "https://repo.spring.io/plugins-release" }
+}
+
+dependencies {
+    // Spring Boot dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Lombok (optional, for reducing boilerplate code like getters/setters)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
+    implementation 'javax.activation:activation:1.1.1'
+
+    // Jackson (optional, for JSON handling if needed)
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // Spring-boot Devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // H2 Database (for in-memory testing; replace with another DB if necessary)
+    runtimeOnly 'com.h2database:h2'
+
+    // PMML support for model evaluation
+    //implementation "org.jpmml:pmml-evaluator:1.3.9"
+    //implementation "org.jpmml:pmml-model:1.3.9"
+    //implementation "org.jpmml:pmml-schema:1.3.9"
+
+    implementation 'org.jpmml:pmml-evaluator:1.6.6'
+    implementation 'org.jpmml:pmml-model:1.6.6'
+    implementation 'org.jpmml:pmml-schema:1.6.6'
+
+    // Jakarta Persistence (JPA)
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+    // Testing dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
